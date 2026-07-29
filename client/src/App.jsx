@@ -9,7 +9,7 @@ function AppContent() {
   const isPortal = location.pathname.startsWith('/user') || location.pathname.startsWith('/admin');
 
   return (
-    <div className={isPortal ? "h-screen overflow-hidden flex flex-col bg-slate-50 font-sans antialiased text-slate-800" : "min-h-screen flex flex-col bg-slate-50 font-sans antialiased text-slate-800"}>
+    <div className={location.pathname.startsWith('/admin') ? "h-screen overflow-hidden flex flex-col bg-slate-50 font-sans antialiased text-slate-800" : "min-h-screen flex flex-col bg-slate-50 font-sans antialiased text-slate-800"}>
       
       {/* Public Global Navigation Header (Hides inside /user/* and /admin/*) */}
       <Navbar />
