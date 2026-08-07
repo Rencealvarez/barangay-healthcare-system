@@ -100,43 +100,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Quick Demo Role Switcher Banner */}
-        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-            <span>⚡ DEMO QUICK ACCESS:</span>
-            <span className="text-emerald-700">1-Click Portal Switch</span>
-          </div>
-          <div className={`grid gap-2 grid-cols-${demoColCount}`}>
-            {showResidentDemo && (
-              <button
-                type="button"
-                onClick={() => handleQuickDemo('resident')}
-                className="px-3 py-2 text-xs font-extrabold rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100 transition-all text-center"
-              >
-                👤 Resident
-              </button>
-            )}
-            {showStaffDemo && (
-              <button
-                type="button"
-                onClick={() => handleQuickDemo('staff')}
-                className="px-3 py-2 text-xs font-extrabold rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-300 hover:bg-indigo-100 transition-all text-center"
-              >
-                🩺 Staff
-              </button>
-            )}
-            {showAdminDemo && (
-              <button
-                type="button"
-                onClick={() => handleQuickDemo('admin')}
-                className="px-3 py-2 text-xs font-extrabold rounded-lg bg-purple-50 text-purple-700 border border-purple-300 hover:bg-purple-100 transition-all text-center"
-              >
-                🛡️ Admin
-              </button>
-            )}
-          </div>
-        </div>
-
+        {/* Portal Tabs */}
         {/* Portal Tabs */}
         {!isTabLocked ? (
           /* Normal /login — show both tabs */

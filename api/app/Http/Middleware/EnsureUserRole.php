@@ -27,11 +27,23 @@ class EnsureUserRole
             ], 401);
         }
 
-        if (!empty($roles) && !in_array($user->role, $roles)) {
+        $allowedRoles = [];
+        foreach ($roles as $roleArg) {
+            foreach (explode('|', $roleArg) as $pipeSplit) {
+                foreach (explode(',', $pipeSplit) as $roleItem) {
+                    $trimmed = trim($roleItem);
+                    if ($trimmed !== '') {
+                        $allowedRoles[] = $trimmed;
+                    }
+                }
+            }
+        }
+
+        if (!empty($allowedRoles) && !in_array($user->role, $allowedRoles)) {
             return response()->json([
                 'status'         => 'error',
                 'message'        => 'Forbidden: Your role [' . $user->role . '] is not authorized to access this resource.',
-                'required_roles' => $roles,
+                'required_roles' => $allowedRoles,
             ], 403);
         }
 

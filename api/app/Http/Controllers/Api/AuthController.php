@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\StaffCredential;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,65 +15,100 @@ class AuthController extends Controller
 {
     /**
      * Authenticate user (Resident, Staff, or Admin) and issue access token.
+     * Supports authentication against staff_credentials table for staff/admin.
      */
     public function login(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'email'    => ['required', 'email'],
+            'email' => ['required', 'string'],
             'password' => ['required', 'string'],
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Validation failed.',
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
-        $user = User::where('email', $request->input('email'))->first();
+        $loginInput = $request->input('email');
+        $passwordInput = $request->input('password');
 
-        // If user not in DB yet during setup, generate or check
-        if (!$user) {
-            // For testing & fallback demo accounts
-            $role = 'resident';
-            if (str_contains($request->input('email'), 'admin')) {
-                $role = 'admin';
-            } elseif (str_contains($request->input('email'), 'staff')) {
-                $role = 'staff';
+        // 1. Search in staff_credentials table (for staff/admin by email or username)
+        $staffCred = StaffCredential::where('email', $loginInput)
+            ->orWhere('username', $loginInput)
+            ->first();
+
+        if ($staffCred) {
+            if (!Hash::check($passwordInput, $staffCred->password)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid email/username or password.',
+                ], 401);
             }
 
-            $user = User::create([
-                'name'     => ucfirst(explode('@', $request->input('email'))[0]),
-                'email'    => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
-                'role'     => $role,
-                'status'   => 'active',
-            ]);
-        } elseif (!Hash::check($request->input('password'), $user->password)) {
-            return response()->json([
-                'status'  => 'error',
-                'message' => 'Invalid email or password.',
-            ], 401);
+            // Sync or fetch associated User model
+            $user = User::where('email', $staffCred->email)->first();
+            if (!$user) {
+                $user = User::create([
+                    'name' => $staffCred->full_name,
+                    'email' => $staffCred->email,
+                    'password' => $staffCred->password,
+                    'role' => $staffCred->role,
+                    'status' => $staffCred->status,
+                ]);
+            }
+            $staffCred->user_id = $user->id;
+            $staffCred->last_login_at = now();
+            $staffCred->save();
+
+        } else {
+            // 2. Search standard users table
+            $user = User::where('email', $loginInput)->first();
+
+            if (!$user) {
+                // For setup/fallback demo accounts
+                $role = 'resident';
+                if (str_contains($loginInput, 'admin')) {
+                    $role = 'admin';
+                } elseif (str_contains($loginInput, 'staff')) {
+                    $role = 'staff';
+                }
+
+                $user = User::create([
+                    'name' => ucfirst(explode('@', $loginInput)[0]),
+                    'email' => $loginInput,
+                    'password' => Hash::make($passwordInput),
+                    'role' => $role,
+                    'status' => 'active',
+                ]);
+            } elseif (!Hash::check($passwordInput, $user->password)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid email or password.',
+                ], 401);
+            }
         }
 
-        $user->load('resident');
+        $user->load(['resident', 'staffCredential']);
 
-        // Issue token (Sanctum createToken or fallback bearer token string)
+        // Issue token
         $token = method_exists($user, 'createToken')
             ? $user->createToken('bhc_api_token')->plainTextToken
             : 'token_' . $user->role . '_' . base64_encode($user->id . ':' . now());
 
         return response()->json([
-            'status'  => 'success',
+            'status' => 'success',
             'message' => 'Authentication successful.',
-            'data'    => [
-                'user'  => [
-                    'id'       => $user->id,
-                    'name'     => $user->name,
-                    'email'    => $user->email,
-                    'role'     => $user->role,
+            'data' => [
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $user->role,
                     'resident' => $user->resident,
+                    'staff_credential' => $user->staffCredential,
                 ],
                 'token' => $token,
             ],
@@ -86,12 +122,12 @@ class AuthController extends Controller
     {
         $user = $request->user();
         if ($user) {
-            $user->load('resident');
+            $user->load(['resident', 'staffCredential']);
         }
 
         return response()->json([
             'status' => 'success',
-            'data'   => $user,
+            'data' => $user,
         ], 200);
     }
 
@@ -105,7 +141,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'status'  => 'success',
+            'status' => 'success',
             'message' => 'Successfully logged out.',
         ], 200);
     }

@@ -16,6 +16,7 @@ class Patient extends Model
         'resident_id',
         'residency_status',
         'address',
+        'purok_zone',
         'birthdate',
         'gender',
         'blood_type',

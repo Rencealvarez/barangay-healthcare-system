@@ -158,16 +158,21 @@ export default function StaffDashboard() {
   const fetchAppointments = async () => {
     setLoading(true);
     try {
-      const response = await axiosClient.get('/appointments');
+      let response;
+      try {
+        response = await axiosClient.get('/admin/appointments');
+      } catch (adminErr) {
+        response = await axiosClient.get('/appointments');
+      }
       const apiData = response.data?.data || response.data;
-      if (Array.isArray(apiData) && apiData.length > 0) {
+      if (Array.isArray(apiData)) {
         setAppointments(apiData);
       } else {
-        setAppointments(DEMO_APPOINTMENTS);
+        setAppointments([]);
       }
     } catch (err) {
-      console.warn('API error, using demo dataset:', err);
-      setAppointments(DEMO_APPOINTMENTS);
+      console.warn('API error:', err);
+      setAppointments([]);
     } finally {
       setLoading(false);
     }
@@ -207,7 +212,7 @@ export default function StaffDashboard() {
   const handleApprove = async () => {
     if (!selectedApt) return;
 
-    const updatedObj = {
+    let updatedObj = {
       ...selectedApt,
       status: 'Approved',
       assigned_doctor: assignedDoctor,
@@ -216,13 +221,27 @@ export default function StaffDashboard() {
     };
 
     try {
-      await axiosClient.put(`/appointments/${selectedApt.id}`, {
+      const response = await axiosClient.put(`/admin/appointments/${selectedApt.id}/status`, {
         status: 'Approved',
         assigned_doctor: assignedDoctor,
         assigned_room: assignedRoom,
       });
+      if (response.data?.data) {
+        updatedObj = response.data.data;
+      }
     } catch (e) {
-      console.warn('Backend update failed, updating UI state:', e);
+      try {
+        const fallbackResp = await axiosClient.put(`/appointments/${selectedApt.id}`, {
+          status: 'Approved',
+          assigned_doctor: assignedDoctor,
+          assigned_room: assignedRoom,
+        });
+        if (fallbackResp.data?.data) {
+          updatedObj = fallbackResp.data.data;
+        }
+      } catch (err2) {
+        console.warn('Backend update failed, updating UI state:', err2);
+      }
     }
 
     setAppointments((prev) =>
@@ -239,7 +258,7 @@ export default function StaffDashboard() {
       return;
     }
 
-    const updatedObj = {
+    let updatedObj = {
       ...selectedApt,
       status: 'Rejected',
       rejection_reason: rejectionReason,
@@ -248,12 +267,25 @@ export default function StaffDashboard() {
     };
 
     try {
-      await axiosClient.put(`/appointments/${selectedApt.id}`, {
+      const response = await axiosClient.put(`/admin/appointments/${selectedApt.id}/status`, {
         status: 'Rejected',
         rejection_reason: rejectionReason,
       });
+      if (response.data?.data) {
+        updatedObj = response.data.data;
+      }
     } catch (e) {
-      console.warn('Backend update failed, updating UI state:', e);
+      try {
+        const fallbackResp = await axiosClient.put(`/appointments/${selectedApt.id}`, {
+          status: 'Rejected',
+          rejection_reason: rejectionReason,
+        });
+        if (fallbackResp.data?.data) {
+          updatedObj = fallbackResp.data.data;
+        }
+      } catch (err2) {
+        console.warn('Backend update failed, updating UI state:', err2);
+      }
     }
 
     setAppointments((prev) =>

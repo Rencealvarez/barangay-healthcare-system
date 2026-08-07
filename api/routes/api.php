@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\InventoryController;
+use App\Http\Controllers\Api\PatientCensusController;
+use App\Http\Controllers\Api\StaffAppointmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,9 +39,22 @@ Route::prefix('appointments')->group(function () {
     Route::put('/{id}', [AppointmentController::class, 'update']);
 });
 
-// 3. Staff & Admin Portal Routes (Protected by role:staff,admin)
-Route::middleware(['role:staff,admin'])->prefix('admin')->group(function () {
-    Route::get('/appointments', [AppointmentController::class, 'index']);
-    Route::get('/patients', [\App\Http\Controllers\Api\PatientController::class, 'index']);
-    Route::put('/patients/{id}', [\App\Http\Controllers\Api\PatientController::class, 'update']);
+// 3. Healthcare Staff & Admin Portal Routes (Protected under role:staff|admin)
+Route::middleware(['role:staff|admin'])->prefix('admin')->group(function () {
+    // Staff Appointment Management
+    Route::get('/appointments', [StaffAppointmentController::class, 'index']);
+    Route::put('/appointments/{id}/status', [StaffAppointmentController::class, 'updateStatus']);
+    Route::put('/appointments/{id}', [StaffAppointmentController::class, 'updateStatus']);
+
+    // Health Inventory Management
+    Route::get('/inventory', [InventoryController::class, 'index']);
+    Route::post('/inventory', [InventoryController::class, 'store']);
+    Route::post('/inventory/{id}/quick-restock', [InventoryController::class, 'quickRestock']);
+    Route::post('/inventory/{id}/restock', [InventoryController::class, 'quickRestock']);
+
+    // Resident Patients Census & Clinical Health Records
+    Route::get('/patients', [PatientCensusController::class, 'index']);
+    Route::get('/census', [PatientCensusController::class, 'index']);
+    Route::put('/patients/{id}/clinical-record', [PatientCensusController::class, 'updateClinicalRecord']);
+    Route::put('/patients/{id}', [PatientCensusController::class, 'updateClinicalRecord']);
 });

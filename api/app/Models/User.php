@@ -37,4 +37,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Resident::class, 'user_id');
     }
+
+    /**
+     * Get the staff/admin credential record associated with the user.
+     */
+    public function staffCredential()
+    {
+        return $this->hasOne(StaffCredential::class, 'user_id');
+    }
 }

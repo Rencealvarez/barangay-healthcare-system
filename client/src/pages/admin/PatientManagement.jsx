@@ -53,7 +53,7 @@ const MOCK_PATIENTS = [
 ];
 
 export default function PatientManagement() {
-  const [patients, setPatients] = useState(MOCK_PATIENTS);
+  const [patients, setPatients] = useState([]);
   const [search, setSearch] = useState('');
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -68,12 +68,15 @@ export default function PatientManagement() {
     setLoading(true);
     try {
       const response = await axiosClient.get('/admin/patients');
-      if (response.data?.status === 'success') {
-        setPatients(response.data.data);
+      const apiData = response.data?.data || response.data;
+      if (Array.isArray(apiData)) {
+        setPatients(apiData);
+      } else {
+        setPatients([]);
       }
     } catch (err) {
-      console.error('Failed to fetch patients:', err);
-      setPatients(MOCK_PATIENTS);
+      console.warn('Failed to fetch patients from API:', err);
+      setPatients([]);
     } finally {
       setLoading(false);
     }
@@ -94,16 +97,30 @@ export default function PatientManagement() {
   };
 
   const handleSavePatient = async () => {
+    if (!selectedPatient) return;
+
+    let updatedRecord = { ...selectedPatient, ...editingData };
+
     try {
-      const response = await axiosClient.put(`/admin/patients/${selectedPatient.id}`, editingData);
-      if (response.data?.status === 'success') {
-        setPatients(prev => prev.map(p => p.id === selectedPatient.id ? { ...p, ...editingData } : p));
-        setSelectedPatient(null);
+      const response = await axiosClient.put(`/admin/patients/${selectedPatient.id}/clinical-record`, editingData);
+      if (response.data?.data) {
+        updatedRecord = response.data.data;
       }
     } catch (err) {
-      console.error('Failed to update patient:', err);
-      alert('Error updating patient record.');
+      try {
+        const fallbackResp = await axiosClient.put(`/admin/patients/${selectedPatient.id}`, editingData);
+        if (fallbackResp.data?.data) {
+          updatedRecord = fallbackResp.data.data;
+        }
+      } catch (err2) {
+        console.warn('Failed to save patient clinical record on API, updating state locally:', err2);
+      }
     }
+
+    setPatients((prev) =>
+      prev.map((p) => (p.id === selectedPatient.id ? updatedRecord : p))
+    );
+    setSelectedPatient(null);
   };
 
   const filteredPatients = patients.filter(

@@ -115,43 +115,20 @@ export const AuthProvider = ({ children }) => {
         setToken(authToken);
         return { success: true, user: authenticatedUser };
       }
+      return { success: false, message: response.data?.message || 'Authentication failed' };
     } catch (err) {
-      console.warn('API authentication failed, falling back to mock login:', err);
-      
-      // Fallback mock logic
-      let authenticatedUser = null;
-      let authToken = '';
-
-      if (credentials.email?.includes('admin')) {
-        authenticatedUser = DEFAULT_USERS.admin;
-        authToken = 'demo_token_admin_789';
-      } else if (credentials.email?.includes('staff')) {
-        authenticatedUser = DEFAULT_USERS.staff;
-        authToken = 'demo_token_staff_456';
-      } else {
-        authenticatedUser = {
-          id: Math.floor(Math.random() * 1000) + 10,
-          name: credentials.name || 'Resident User',
-          email: credentials.email || 'resident@barangay.gov.ph',
-          role: 'resident',
-          phone_number: credentials.phone_number || '09170001122',
-          residency_status: 'Verified Resident',
-        };
-        authToken = 'demo_token_resident_' + Date.now();
-      }
-
-      setUser(authenticatedUser);
-      setToken(authToken);
-      return { success: true, user: authenticatedUser };
+      console.warn('API authentication failed:', err);
+      return {
+        success: false,
+        message: err.response?.data?.message || 'Invalid email/username or password.'
+      };
     } finally {
       setLoading(false);
     }
   };
 
   const switchRole = (roleType) => {
-    const selected = DEFAULT_USERS[roleType] || DEFAULT_USERS.resident;
-    setUser(selected);
-    setToken(`demo_token_${roleType}_${Date.now()}`);
+    console.warn('switchRole bypassed in production database-only mode');
   };
 
   const logout = () => {
