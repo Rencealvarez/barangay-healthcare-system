@@ -139,7 +139,7 @@ export default function AppointmentConfirmation() {
 
               {data.reason && (
                 <div className="sm:col-span-2 pt-3 border-t border-slate-200">
-                  <span className="text-slate-550 text-xs font-bold">Visit Reason / Chief Complaint:</span>
+                  <span className="text-slate-500 text-xs font-bold">Visit Reason / Chief Complaint:</span>
                   <p className="text-slate-700 text-xs italic mt-1 font-semibold">"{data.reason}"</p>
                 </div>
               )}

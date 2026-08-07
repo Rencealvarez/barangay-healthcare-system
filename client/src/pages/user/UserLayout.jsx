@@ -32,7 +32,7 @@ export default function UserLayout() {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
 
       {/* Resident Portal Top Navigation Header */}
-      <header className="bg-white text-slate-850 shadow sticky top-0 z-40 border-b border-slate-200">
+      <header className="bg-white text-slate-800 shadow sticky top-0 z-40 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
 
@@ -104,7 +104,7 @@ export default function UserLayout() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap flex items-center gap-1.5 ${isActive ? 'bg-emerald-600 text-white' : 'text-slate-650 hover:bg-slate-100 hover:text-slate-900'
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap flex items-center gap-1.5 ${isActive ? 'bg-emerald-600 text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                 >
                   <IconComp className="w-3.5 h-3.5" />

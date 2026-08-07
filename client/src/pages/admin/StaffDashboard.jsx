@@ -270,7 +270,7 @@ export default function StaffDashboard() {
         <div className="bg-white text-slate-800 rounded-3xl p-6 sm:p-8 shadow border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-2">
-              <ShieldCheck className="w-3.5 h-3.5 text-indigo-650" />
+              <ShieldCheck className="w-3.5 h-3.5 text-indigo-600" />
               <span>Healthcare Staff Workflow</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
@@ -314,7 +314,7 @@ export default function StaffDashboard() {
             <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500" />
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-555 text-slate-500">Pending Review</p>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Pending Review</p>
                 <h3 className="text-3xl font-bold text-slate-900 mt-1.5">{stats.pending}</h3>
               </div>
               <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
@@ -329,7 +329,7 @@ export default function StaffDashboard() {
             <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500" />
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-555 text-slate-500">Approved</p>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Approved</p>
                 <h3 className="text-3xl font-bold text-slate-900 mt-1.5">{stats.approved}</h3>
               </div>
               <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
@@ -344,7 +344,7 @@ export default function StaffDashboard() {
             <div className="absolute top-0 left-0 right-0 h-1 bg-rose-500" />
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-555 text-slate-500">Rejected</p>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Rejected</p>
                 <h3 className="text-3xl font-bold text-slate-900 mt-1.5">{stats.rejected}</h3>
               </div>
               <div className="p-2 bg-rose-50 text-rose-600 rounded-lg">
@@ -404,7 +404,7 @@ export default function StaffDashboard() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs text-slate-700 border-collapse">
-                <thead className="bg-slate-50 text-slate-555 text-slate-500 text-xs font-semibold uppercase tracking-wider border-b border-slate-200/80">
+                <thead className="bg-slate-50 text-slate-500 text-xs font-semibold uppercase tracking-wider border-b border-slate-200/80">
                   <tr>
                     <th className="py-3 px-4 font-semibold align-middle">Reference & Resident</th>
                     <th className="py-3 px-4 font-semibold align-middle">Service Requested</th>
@@ -492,7 +492,7 @@ export default function StaffDashboard() {
               </button>
 
               <div className="flex items-center gap-2 mb-2">
-                <span className="px-2.5 py-0.5 bg-indigo-100 text-indigo-850 font-extrabold rounded-full text-[10px] uppercase tracking-wider border border-indigo-200">
+                <span className="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 font-extrabold rounded-full text-[10px] uppercase tracking-wider border border-indigo-200">
                   Flowchart Step: Review Appointment Details
                 </span>
               </div>
@@ -555,7 +555,7 @@ export default function StaffDashboard() {
                         type="text"
                         value={assignedDoctor}
                         onChange={(e) => setAssignedDoctor(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-350 text-sm focus:outline-none focus:border-indigo-650 bg-white font-semibold"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-indigo-600 bg-white font-semibold"
                       />
                     </div>
 
@@ -567,7 +567,7 @@ export default function StaffDashboard() {
                         type="text"
                         value={assignedRoom}
                         onChange={(e) => setAssignedRoom(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-355 text-sm focus:outline-none focus:border-indigo-650 bg-white font-semibold"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-indigo-600 bg-white font-semibold"
                       />
                     </div>
                   </div>

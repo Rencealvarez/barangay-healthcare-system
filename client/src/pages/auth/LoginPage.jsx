@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -17,18 +18,24 @@ export default function LoginPage() {
   const initialTab = isStaffOnlyMode ? 'staff' : 'resident';
 
   const [activeTab, setActiveTab] = useState(initialTab);
-  const [email, setEmail] = useState(initialTab === 'resident' ? 'resident@barangay.gov.ph' : 'staff@barangay.gov.ph');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+
+  // Sync state when initialTab (derived from URL tab query param) changes
+  useEffect(() => {
+    setActiveTab(initialTab);
+    setEmail('');
+    setPassword('');
+    setError('');
+  }, [initialTab]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setError('');
-    if (tab === 'resident') {
-      setEmail('resident@barangay.gov.ph');
-    } else {
-      setEmail('staff@barangay.gov.ph');
-    }
+    setEmail('');
+    setPassword('');
   };
 
   const handleSubmit = async (e) => {
@@ -88,8 +95,8 @@ export default function LoginPage() {
             {isStaffOnlyMode
               ? 'Access is restricted to authorized healthcare personnel only'
               : isResidentOnlyMode
-              ? 'Sign in to access your Resident Health Portal'
-              : 'Sign in to access your designated healthcare portal'}
+                ? 'Sign in to access your Resident Health Portal'
+                : 'Sign in to access your designated healthcare portal'}
           </p>
         </div>
 
@@ -137,8 +144,8 @@ export default function LoginPage() {
             <button
               onClick={() => handleTabChange('resident')}
               className={`flex-1 py-3 text-sm font-bold border-b-2 text-center transition-all ${activeTab === 'resident'
-                  ? 'border-emerald-600 text-emerald-700'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-emerald-600 text-emerald-700'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
             >
               Resident Portal
@@ -146,8 +153,8 @@ export default function LoginPage() {
             <button
               onClick={() => handleTabChange('staff')}
               className={`flex-1 py-3 text-sm font-bold border-b-2 text-center transition-all ${activeTab === 'staff'
-                  ? 'border-indigo-600 text-indigo-700'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-indigo-600 text-indigo-700'
+                : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
             >
               Staff &amp; Admin Portal
@@ -187,7 +194,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 text-base focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 font-semibold"
-              placeholder={activeTab === 'resident' ? 'resident@barangay.gov.ph' : 'staff@barangay.gov.ph'}
+              placeholder={activeTab === 'resident' ? 'Email Address' : 'Email Address'}
             />
           </div>
 
@@ -195,21 +202,30 @@ export default function LoginPage() {
             <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
               Password
             </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 text-base focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 font-semibold"
-              placeholder="••••••••"
-            />
+            <div className="relative flex items-center">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full pl-4 pr-12 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 text-base focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 font-semibold"
+                placeholder="Password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 text-slate-400 hover:text-slate-600 focus:outline-none flex items-center justify-center"
+              >
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
 
           <button
             type="submit"
             className={`w-full py-3.5 px-6 rounded-xl font-extrabold text-base text-white shadow-md transition-all ${activeTab === 'resident'
-                ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-600/20'
-                : 'bg-indigo-600 hover:bg-indigo-500 shadow-indigo-600/20'
+              ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-600/20'
+              : 'bg-indigo-600 hover:bg-indigo-500 shadow-indigo-600/20'
               }`}
           >
             Sign In as {activeTab === 'resident' ? 'Barangay Resident' : 'Healthcare Worker'}

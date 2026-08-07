@@ -136,7 +136,7 @@ export default function PatientManagement() {
             placeholder="Search patient by name, resident ID, or purok zone..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full max-w-md px-4 py-3 bg-white border border-slate-350 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-indigo-650 font-semibold"
+            className="w-full max-w-md px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-indigo-600 font-semibold"
           />
         </div>
 
@@ -163,20 +163,20 @@ export default function PatientManagement() {
 
               <div className="grid grid-cols-2 gap-2 text-xs border-t border-slate-200 pt-3 text-slate-700">
                 <div>
-                  <span className="text-slate-550 font-bold">Purok/Zone:</span> <span className="font-bold">{patient.purok_zone}</span>
+                  <span className="text-slate-500 font-bold">Purok/Zone:</span> <span className="font-bold">{patient.purok_zone}</span>
                 </div>
                 <div>
-                  <span className="text-slate-550 font-bold">Phone:</span> <span className="font-bold">{patient.contact_number}</span>
+                  <span className="text-slate-500 font-bold">Phone:</span> <span className="font-bold">{patient.contact_number}</span>
                 </div>
                 <div>
-                  <span className="text-slate-550 font-bold">Total Visits:</span> <span className="font-extrabold text-indigo-700">{patient.consultation_count} consultations</span>
+                  <span className="text-slate-500 font-bold">Total Visits:</span> <span className="font-extrabold text-indigo-700">{patient.consultation_count} consultations</span>
                 </div>
               </div>
 
               <div className="pt-1 flex justify-end">
                 <button
                   onClick={() => handleEditClick(patient)}
-                  className="px-6 py-3.5 bg-indigo-650 hover:bg-indigo-600 text-white border border-indigo-700 rounded-xl text-sm font-extrabold transition-all shadow-sm min-h-[48px]"
+                  className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white border border-indigo-700 rounded-xl text-sm font-extrabold transition-all shadow-sm min-h-[48px]"
                 >
                   📄 Edit Clinical Health File
                 </button>
@@ -260,7 +260,7 @@ export default function PatientManagement() {
               </button>
               <button
                 onClick={handleSavePatient}
-                className="px-5 py-3 bg-indigo-650 hover:bg-indigo-600 text-white text-xs font-extrabold rounded-xl border border-indigo-700 min-h-[44px]"
+                className="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold rounded-xl border border-indigo-700 min-h-[44px]"
               >
                 Save Changes
               </button>

@@ -92,15 +92,15 @@ export default function InventoryManagement() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-slate-800">
         <div>
-          <span className="text-xs font-mono font-bold text-indigo-750 uppercase">Barangay Supply Chain</span>
+          <span className="text-xs font-mono font-bold text-indigo-700 uppercase">Barangay Supply Chain</span>
           <h1 className="text-2xl font-extrabold text-slate-900 mt-1">Medical Inventory & Supplies</h1>
-          <p className="text-xs text-slate-650 mt-1 font-semibold">
+          <p className="text-xs text-slate-600 mt-1 font-semibold">
             Monitor stocks of essential medicines, vaccines, and clinical supplies at the health station.
           </p>
         </div>
         <button
           onClick={() => alert('New item creation modal simulation')}
-          className="px-4 py-2.5 bg-indigo-650 hover:bg-indigo-600 text-white font-bold text-xs rounded-xl transition-all shadow flex items-center gap-1.5"
+          className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition-all shadow flex items-center gap-1.5"
         >
           <span>➕</span> Add New Medicine / Stock
         </button>
@@ -129,7 +129,7 @@ export default function InventoryManagement() {
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-1 shadow-sm">
           <div className="text-xs text-slate-600 font-bold uppercase">Out of Stock</div>
-          <div className="text-2xl font-black text-rose-805">
+          <div className="text-2xl font-black text-rose-800">
             {inventory.filter((i) => i.status === 'Out of Stock').length}
           </div>
         </div>
@@ -143,13 +143,13 @@ export default function InventoryManagement() {
             placeholder="Search item name or code..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full sm:w-80 px-4 py-3 bg-white border border-slate-350 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-indigo-650 font-semibold"
+            className="w-full sm:w-80 px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-indigo-600 font-semibold"
           />
 
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="w-full sm:w-60 px-4 py-3 bg-white border border-slate-350 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-indigo-650 font-semibold"
+            className="w-full sm:w-60 px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 text-sm focus:outline-none focus:border-indigo-600 font-semibold"
           >
             <option value="All">All Categories</option>
             <option value="Essential Medicine">Essential Medicine</option>
@@ -175,7 +175,7 @@ export default function InventoryManagement() {
             <tbody className="divide-y divide-slate-200 text-slate-800 font-semibold">
               {filteredItems.map((item) => (
                 <tr key={item.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="p-4 font-mono text-indigo-750 font-black">{item.code}</td>
+                  <td className="p-4 font-mono text-indigo-700 font-black">{item.code}</td>
                   <td className="p-4 font-bold text-slate-900">{item.item_name}</td>
                   <td className="p-4 text-slate-700 font-bold">{item.category}</td>
                   <td className="p-4 font-bold font-mono">
@@ -187,8 +187,8 @@ export default function InventoryManagement() {
                         item.status === 'In Stock'
                           ? 'bg-emerald-100 text-emerald-950 border border-emerald-300'
                           : item.status === 'Low Stock'
-                          ? 'bg-amber-100 text-amber-950 border border-amber-300'
-                          : 'bg-rose-100 text-rose-955 border border-rose-200'
+                          ? 'bg-amber-100 text-amber-955 border border-amber-300'
+                          : 'bg-rose-100 text-rose-950 border border-rose-200'
                       }`}
                     >
                       {item.status}
@@ -198,7 +198,7 @@ export default function InventoryManagement() {
                   <td className="p-4 text-right">
                     <button
                       onClick={() => handleRestock(item.id)}
-                      className="px-6 py-3.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-850 border border-indigo-250 rounded-xl text-sm font-extrabold transition-all shadow-sm min-h-[48px]"
+                      className="px-6 py-3.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-sm font-extrabold transition-all shadow-sm min-h-[48px]"
                     >
                       + Quick Restock (+100)
                     </button>

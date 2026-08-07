@@ -348,14 +348,14 @@ export default function BookAppointment() {
       <div className="max-w-4xl mx-auto space-y-6">
 
         {/* Top Header Card */}
-        <div className="bg-white text-slate-850 rounded-3xl p-6 sm:p-8 shadow border border-slate-200 relative overflow-hidden">
+        <div className="bg-white text-slate-800 rounded-3xl p-6 sm:p-8 shadow border border-slate-200 relative overflow-hidden">
           <div className="absolute top-0 right-0 -mt-10 -mr-10 w-48 h-48 rounded-full bg-emerald-500/5 blur-2xl pointer-events-none"></div>
           <div className="relative z-10">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full text-xs font-extrabold uppercase tracking-widest border border-emerald-205 mb-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full text-xs font-extrabold uppercase tracking-widest border border-emerald-200 mb-2">
               <Calendar className="w-3.5 h-3.5" /> Flowchart Step 3: Appointment Booking
             </span>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Book a Health Center Appointment</h1>
-            <p className="mt-1 text-slate-650 text-xs sm:text-sm max-w-xl leading-relaxed">
+            <p className="mt-1 text-slate-600 text-xs sm:text-sm max-w-xl leading-relaxed">
               Schedule a visit with our Barangay health workers and medical team. Choose your service, select a date, and confirm your slot.
             </p>
           </div>
@@ -490,7 +490,7 @@ export default function BookAppointment() {
                             </span>
                           </div>
                           <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">{service.title}</h3>
-                          <p className="text-slate-650 text-xs mt-1 font-semibold leading-relaxed">{service.description}</p>
+                          <p className="text-slate-600 text-xs mt-1 font-semibold leading-relaxed">{service.description}</p>
                         </div>
 
                         <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
@@ -544,7 +544,7 @@ export default function BookAppointment() {
                       onChange={handleChange}
                       className={`w-full px-4 py-3 rounded-xl text-sm sm:text-base border-2 focus:outline-none focus:ring-2 ${errors.preferred_date
                         ? 'border-red-600 bg-red-50/50 focus:ring-red-205 text-red-950 font-bold'
-                        : 'border-slate-350 bg-white focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold'
+                        : 'border-slate-300 bg-white focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold'
                         }`}
                     />
                     {errors.preferred_date && (
@@ -569,10 +569,10 @@ export default function BookAppointment() {
                             key={slot.value}
                             onClick={() => handleSlotClick(slot)}
                             className={`py-3.5 px-3 min-h-[56px] text-sm font-extrabold rounded-xl border transition text-center flex flex-col items-center justify-center gap-0.5 ${isFull
-                              ? 'bg-slate-200 text-slate-500 border-slate-350 cursor-not-allowed opacity-80 line-through'
+                              ? 'bg-slate-200 text-slate-500 border-slate-300 cursor-not-allowed opacity-80 line-through'
                               : isTimeSelected
                                 ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
-                                : 'bg-white border-slate-350 text-slate-800 hover:bg-slate-50 shadow-sm'
+                                : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-50 shadow-sm'
                               }`}
                           >
                             <span className="font-extrabold">{slot.label}</span>
@@ -631,7 +631,7 @@ export default function BookAppointment() {
                       placeholder="e.g. 1"
                       className={`w-full px-4 py-3 rounded-xl text-sm sm:text-base border-2 focus:outline-none focus:ring-2 ${errors.user_id
                         ? 'border-red-600 bg-red-50/50 focus:ring-red-200 text-red-950 font-bold'
-                        : 'border-slate-350 bg-white focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold'
+                        : 'border-slate-300 bg-white focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold'
                         }`}
                     />
                     {errors.user_id && (
@@ -649,7 +649,7 @@ export default function BookAppointment() {
                       value={formData.patient_id}
                       onChange={handleChange}
                       placeholder="e.g. 1 (If family member)"
-                      className="w-full px-4 py-3 rounded-xl text-sm sm:text-base border border-slate-350 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold"
+                      className="w-full px-4 py-3 rounded-xl text-sm sm:text-base border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold"
                     />
                   </div>
 
@@ -663,7 +663,7 @@ export default function BookAppointment() {
                       value={formData.resident_name}
                       onChange={handleChange}
                       placeholder="Juan Dela Cruz"
-                      className="w-full px-4 py-3 rounded-xl text-sm sm:text-base border border-slate-355 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold"
+                      className="w-full px-4 py-3 rounded-xl text-sm sm:text-base border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold"
                     />
                   </div>
 
@@ -677,7 +677,7 @@ export default function BookAppointment() {
                       value={formData.contact_number}
                       onChange={handleChange}
                       placeholder="0917XXXXXXX"
-                      className="w-full px-4 py-3 rounded-xl text-sm sm:text-base border border-slate-355 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold"
+                      className="w-full px-4 py-3 rounded-xl text-sm sm:text-base border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold"
                     />
                   </div>
                 </div>
@@ -692,7 +692,7 @@ export default function BookAppointment() {
                     value={formData.reason}
                     onChange={handleChange}
                     placeholder="Describe symptoms or reason for booking an appointment..."
-                    className="w-full px-4 py-3 rounded-xl text-sm sm:text-base border border-slate-355 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold"
+                    className="w-full px-4 py-3 rounded-xl text-sm sm:text-base border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 font-semibold"
                   ></textarea>
                 </div>
               </div>

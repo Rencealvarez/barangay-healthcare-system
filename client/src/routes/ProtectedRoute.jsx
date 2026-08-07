@@ -26,7 +26,13 @@ export default function ProtectedRoute({ allowedRoles = [], children }) {
 
   // 1. Check Authentication Status
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    let loginPath = '/login';
+    if (allowedRoles.includes('resident') && !allowedRoles.includes('staff') && !allowedRoles.includes('admin')) {
+      loginPath = '/login?tab=resident';
+    } else if ((allowedRoles.includes('staff') || allowedRoles.includes('admin')) && !allowedRoles.includes('resident')) {
+      loginPath = '/login?tab=staff';
+    }
+    return <Navigate to={loginPath} state={{ from: location }} replace />;
   }
 
   // 2. Check Role Authorization

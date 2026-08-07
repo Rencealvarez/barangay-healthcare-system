@@ -79,7 +79,7 @@ export default function UserDashboard() {
             </Link>
             <Link
               to="/user/medical-records"
-              className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs border border-slate-350 transition-all"
+              className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs border border-slate-300 transition-all"
             >
               📋 View Medical Records
             </Link>

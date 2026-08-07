@@ -172,7 +172,7 @@ export default function LandingPage() {
           {/* Left Column Text & CTAs */}
           <div className="lg:col-span-7 space-y-6">
 
-            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-250 text-emerald-800 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
               <Building2 className="w-3.5 h-3.5 text-emerald-700" />
               <span>Official Barangay Health Portal</span>
             </div>
@@ -181,7 +181,7 @@ export default function LandingPage() {
               Quality Community Healthcare, <span className="bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-800 bg-clip-text text-transparent">Right at Your Doorstep</span>
             </h1>
 
-            <p className="text-slate-650 text-base sm:text-lg max-w-2xl leading-relaxed font-normal">
+            <p className="text-slate-600 text-base sm:text-lg max-w-2xl leading-relaxed font-normal">
               Welcome to the official Barangay Healthcare Services & Online Appointment System. Access free medical checkups, immunization schedules, diagnostic requests, and maternal care for all verified barangay residents.
             </p>
 
@@ -232,28 +232,28 @@ export default function LandingPage() {
                   <h3 className="font-extrabold text-lg text-slate-900 font-sans">Health Center Status</h3>
                   <p className="text-xs text-emerald-700 font-bold">Barangay Main Health Clinic</p>
                 </div>
-                <span className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 border border-emerald-250 px-3 py-1 rounded-full text-xs font-bold">
+                <span className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full text-xs font-bold">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> OPEN TODAY
                 </span>
               </div>
 
               <div className="space-y-3.5 text-xs sm:text-sm">
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                  <span className="text-slate-550 font-semibold">Duty Physician:</span>
+                  <span className="text-slate-500 font-semibold">Duty Physician:</span>
                   <span className="font-bold text-slate-800 flex items-center gap-1.5">
-                    <Stethoscope className="w-4 h-4 text-emerald-650" /> Dr. Maria Santos, MD
+                    <Stethoscope className="w-4 h-4 text-emerald-600" /> Dr. Maria Santos, MD
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                  <span className="text-slate-550 font-semibold">Duty Health Nurse:</span>
+                  <span className="text-slate-500 font-semibold">Duty Health Nurse:</span>
                   <span className="font-bold text-slate-800 flex items-center gap-1.5">
                     <HeartPulse className="w-4 h-4 text-teal-600" /> Nurse Ramon Reyes, RN
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                  <span className="text-slate-550 font-semibold">Available Slots Today:</span>
+                  <span className="text-slate-500 font-semibold">Available Slots Today:</span>
                   <span className="font-extrabold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-200">
                     14 Slots Remaining
                   </span>
@@ -430,7 +430,7 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
         <div className="bg-white rounded-3xl p-8 sm:p-14 text-slate-800 shadow-xl relative overflow-hidden border border-slate-200">
           <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
-            <div className="w-14 h-14 bg-emerald-50 text-emerald-700 border border-emerald-250 rounded-2xl flex items-center justify-center mx-auto text-2xl">
+            <div className="w-14 h-14 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-2xl flex items-center justify-center mx-auto text-2xl">
               <Stethoscope className="w-7 h-7" />
             </div>
 
@@ -438,7 +438,7 @@ export default function LandingPage() {
               Need Medical Attention or a Health Checkup?
             </h2>
 
-            <p className="text-slate-650 text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
               Book your appointment online in under 2 minutes. Skip long queues and ensure your priority slot with our healthcare personnel.
             </p>
 

@@ -34,8 +34,8 @@ export default function AdminLayout() {
 
         {/* Header */}
         <div className="p-5 border-b border-slate-200 flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-55 bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold shadow-sm">
-            <ShieldCheck className="w-5 h-5 text-indigo-650" />
+          <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-700 font-bold shadow-sm">
+            <ShieldCheck className="w-5 h-5 text-indigo-600" />
           </div>
           <div>
             <div className="text-sm font-extrabold text-slate-900 tracking-wide">Barangay Admin</div>
@@ -48,7 +48,7 @@ export default function AdminLayout() {
         {/* User Card */}
         <div className="p-4 mx-3 my-3 bg-slate-50/60 border border-slate-200/50 rounded-xl flex items-center space-x-3">
           <div className="relative shrink-0">
-            <div className="w-10 h-10 rounded-full bg-indigo-55 bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-750 font-bold text-sm shadow-sm ring-2 ring-emerald-500/25 ring-offset-2">
+            <div className="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-sm shadow-sm ring-2 ring-emerald-500/25 ring-offset-2">
               {user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'CR'}
             </div>
           </div>
